@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="author" content="Yash Gohel">
+  <meta name="description" content="To-Do-List by Yash Gohel">
+  <meta name="keywords" content="To-Do-List, Javascript, Yash, Gohel, Yash Gohel, localStorage">
+  <meta name="language" content="English">
+  
+  <title>To-Do-List by Yash Gohel</title>
+  <link rel="icon" href="https://yashportfolio2.vercel.app/favicon.ico" type="image/x-icon">
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+ <header>
+        <a href="/">
+            <h1>To Do List</h1>
+        </a>
+    </header>
+
+    <main >
+      <center>
+        <div class="container">
+            <form onsubmit="return false;" class="input_form" id="todo_form">
+                <input type="text" name="todo_input_text" id="todo_input_text" id="title_input_text" placeholder="Enter new To-Do">
+                <button id="todo_add_btn">ADD</button>
+            </form>
+            <div id="output_div">
+               <div id="hide" class="item_div">
+        Sample: 7 Hours of Sleep
+        <button class="del_btn">X</button>
+      </div>
+            </div>
+            <div class="delete_btn_div">
+                <button id="all_delete_btn">Delete All ToDo</button>
+            </div>
+        </div>
+        <div>
+            <p>Made by <a href="https://yashportfolio2.vercel.app">Yash Gohel</a></p>
+        </div>
+        </center>
+    </main>
+
+  <script src="script.js"></script>
+
+  
+ 
+</body>
+
+</html>
