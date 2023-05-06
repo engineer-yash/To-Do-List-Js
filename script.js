@@ -1,77 +1,58 @@
+// Function to delete an item from localStorage and update the page
+function delFunc(key) {
+  localStorage.removeItem(key);
+  // Remove the item from the page by selecting its parent element and removing it
+  output_div.querySelector(`[data-key="${key}"]`).remove();
+  
+}
+
+// Retrieve data from localStorage on page load
 window.addEventListener('load', () => {
-    // Retrieve data from localStorage
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      const value = localStorage.getItem(key);
-  
-      // Display data on the page
-      output_div.innerHTML += `
-        <div class="item_div">
-          ${value}
-          <button class="del_btn">X</button>
-        </div>`;
-        document.getElementById("hide").style.display = "none";
-    }
-  });
-  // Selectors
-  todo_add_btn.addEventListener('click', (e) => {
-    e.preventDefault();
-    let todo = todo_input_text.value.trim();
-  
-    // Check if the input is empty or already exists
-    if (todo === '') {
-      alert('Please enter a todo item');
-    } else if (localStorage.getItem(`todo${localStorage.length - 1}`) === todo) {
-      alert('Todo item already exists');
-    } else {
-      // Get the next key
-      let key = 0;
-      while (localStorage.getItem(`todo${key}`) !== null) {
-        key++;
-      }
-      // Add data to localStorage
-      localStorage.setItem(`todo${key}`, todo);
-      output_div.innerHTML += `
-        <div class="item_div">
-          ${todo}
-          <button class="del_btn">X</button>
-        </div>`;
-        // Clear input field
-      todo_input_text.value = '';
-      // Hide sample
-      document.getElementById("hide").style.display = "none";
-    }
-    
-  });
-  
-  // Delete a single item
-  output_div.addEventListener('click', (e) => {
-    e.preventDefault();//prevent default action- refresh Prevention
-    // Check if the delete button is clicked
-    if (e.target.classList.contains('del_btn')) {
-      const todoItem = e.target.parentElement.textContent.trim();
-      e.target.parentElement.remove();
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        const value = localStorage.getItem(key);
-        if (value === todoItem) {
-          localStorage.removeItem(key);
-          break;
-        }
-      }
-    }
-  });
-  
-  // Delete all items
-  all_delete_btn.addEventListener('click', (e) => {
-    e.preventDefault();
-    localStorage.clear();
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    const value = localStorage.getItem(key);
+    // Add a data-key attribute to each item_div element for later reference
+    output_div.innerHTML += `
+      <div class="item_div" data-key="${key}">
+        ${value}
+        <button class="del_btn" onclick="delFunc('${key}')">X</button>
+      </div>`;
+  }
+});
 
-    //showing Sample while deleting all
-    output_div.innerHTML = `<div class="item_div">
-    Sample: 7 Hours of Sleep
-    <button class="del_btn">X</button>
-  </div>`;
+// Add a new todo item to localStorage and the page
+todo_add_btn.addEventListener('click', (e) => {
+  e.preventDefault();
+  let todo = todo_input_text.value.trim();
 
-  });
-  
+  if (todo === '') {
+    alert('Please enter a todo item');
+  } else if (localStorage.getItem(`todo${localStorage.length - 1}`) === todo) {
+    alert('Todo item already exists');
+  } else {
+    let key = 0;
+    while (localStorage.getItem(`todo${key}`) !== null) {
+      key++;
+    }
+    localStorage.setItem(`todo${key}`, todo);
+    // Add a data-key attribute to the new item_div element
+    output_div.innerHTML += `
+      <div class="item_div" data-key="todo${key}">
+        ${todo}
+        <button class="del_btn" onclick="delFunc('todo${key}')">X</button>
+      </div>`;
+    todo_input_text.value = '';
+  }
+});
+
+// Remove all items from localStorage and the page
+all_delete_btn.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.clear();
+  output_div.innerHTML = '';
+});
+
+
+function DelSample(){
+  document.getElementById("del_sample").remove()
+}
