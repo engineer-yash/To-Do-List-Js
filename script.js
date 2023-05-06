@@ -1,3 +1,9 @@
+// Select elements from the DOM
+const output_div = document.querySelector('#output_div');
+const todo_add_btn = document.querySelector('#todo_add_btn');
+const all_delete_btn = document.querySelector('#all_delete_btn');
+const todo_input_text = document.querySelector('#todo_input_text');
+
 // Function to delete an item from localStorage and update the page
 function delFunc(key) {
   localStorage.removeItem(key);
